@@ -22,8 +22,19 @@ spec:
             - containerPost: 5432
           env:
             - name: POSTGRES_PASSWORD
-              value: hbc
-            - name: POSTGRES-DB
-              value: mydb
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+            - name: POSTGRES-USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: username
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: dbname
 
 ...
